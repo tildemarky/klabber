@@ -20,12 +20,6 @@ export default class Document extends NextDocument {
         <body>
           <Main />
           <NextScript />
-          <script
-            async
-            defer
-            data-website-id="e62a8766-355f-4fa1-ad0f-f2adfed8cc6c"
-            src="https://umame.one/umami.js"
-          />
         </body>
       </Html>
     );
