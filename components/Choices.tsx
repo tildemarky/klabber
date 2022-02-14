@@ -1,8 +1,8 @@
 import { motion } from "framer-motion";
+import { Choice } from "styles/components/Choices.css";
 
 import { useLang } from "../hooks/useLang";
 import { common } from "../locales/common";
-import { Choice } from "styles/components/Choices.css";
 
 type ChoiceProps = {
   variant: "good" | "bad" | "reset";

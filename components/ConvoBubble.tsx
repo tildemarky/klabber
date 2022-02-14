@@ -9,13 +9,6 @@ const cardItem = {
   },
   hidden: { opacity: 0, scale: 0 },
 };
-const visitedItem = {
-  visible: {
-    opacity: 1,
-    scale: 1,
-  },
-  hidden: { opacity: 0, scale: 0 },
-};
 
 type Props = {
   type?: string;
@@ -26,6 +19,7 @@ type Props = {
 export function ConvoBubble({ type, visited, message }: Props): JSX.Element {
   if (type === "reply") {
     return (
+      // eslint-disable-next-line new-cap
       <motion.div variants={cardItem} className={Bubble({ color: "primary" })}>
         {message}
       </motion.div>
@@ -36,6 +30,7 @@ export function ConvoBubble({ type, visited, message }: Props): JSX.Element {
       initial={visited ? "visible" : "hidden"}
       animate={visited ? false : "visible"}
       variants={cardItem}
+      // eslint-disable-next-line new-cap
       className={Bubble({})}
     >
       {message}

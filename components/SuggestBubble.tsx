@@ -73,6 +73,7 @@ type ItemProps = {
 };
 
 export function SuggestBubble(props: ItemProps): JSX.Element {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [sum, setSum] = useState(0);
   const { background_image, name, ratings, stores } = props.item;
 
@@ -81,10 +82,10 @@ export function SuggestBubble(props: ItemProps): JSX.Element {
     let exceptional = 0;
     ratings
       .filter((rating) => rating.id === 4)
-      .map((rate) => (recommended = rate.percent));
+      .forEach((rate) => (recommended = rate.percent));
     ratings
       .filter((rating) => rating.id === 5)
-      .map((rate) => (exceptional = rate.percent));
+      .forEach((rate) => (exceptional = rate.percent));
     setSum(Math.ceil(recommended + exceptional));
   }, [ratings]);
 
