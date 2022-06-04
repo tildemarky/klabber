@@ -1,19 +1,17 @@
-import { PageLayout } from "@comp/PageLayout";
-import React from "react";
-import { StyledPage } from "styles/whyPage.css";
-
-import { useLang } from "../hooks/useLang";
-import { common } from "../locales/common";
+import Layout from "@comp/Layout";
+import { useLang } from "@hooks/useLang";
+import { common } from "@locales/common";
+import { StyledPage } from "@style/whyPage.css";
 
 function WhyPage(): JSX.Element {
   const lang = useLang();
   return (
-    <PageLayout>
+    <Layout>
       <main className={StyledPage}>
         <h1>{common[lang].explanationSummary}</h1>
         <p>{common[lang].explanationExpansion}</p>
       </main>
-    </PageLayout>
+    </Layout>
   );
 }
 

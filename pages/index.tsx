@@ -1,28 +1,24 @@
-import { Choices } from "@comp/Choices";
-import { ConvoBubble } from "@comp/ConvoBubble";
-import { ErrorBubble } from "@comp/ErrorBubble";
-import { Feedback } from "@comp/Feedback";
-import { Footer } from "@comp/Footer";
-import { Header } from "@comp/Header";
-import { InputBubble } from "@comp/InputBubble";
-import { LoadingBubble } from "@comp/LoadingBubble";
-import { Main } from "@comp/Main";
-import { SuggestBubble } from "@comp/SuggestBubble";
-import { SuggestionBox } from "@comp/SuggestionBox";
+import ConvoBubble from "@comp/Bubbles/ConvoBubble";
+import ErrorBubble from "@comp/Bubbles/ErrorBubble";
+import InputBubble from "@comp/Bubbles/InputBubble";
+import LoadingBubble from "@comp/Bubbles/LoadingBubble";
+import SuggestBubble from "@comp/Bubbles/SuggestBubble";
+import Choices from "@comp/Choices";
+import Container from "@comp/Container";
+import Feedback from "@comp/Feedback";
+import Footer from "@comp/Layout/Footer";
+import Header from "@comp/Layout/Header";
+import SuggestionBox from "@comp/SuggestionBox";
+import { useLang } from "@hooks/useLang";
+import { common } from "@locales/common";
 import Head from "next/head";
 import type { SyntheticEvent } from "react";
-import { useState, useRef, useEffect } from "react";
-
-import { useLang } from "../hooks/useLang";
-import { common } from "../locales/common";
+import { useEffect, useRef, useState } from "react";
 
 export default function Home(): JSX.Element {
-  // Hooks
   const lang = useLang();
-  // Refs
   const chatEl = useRef<HTMLInputElement>(null);
   const suggestEl = useRef<HTMLDivElement>(null);
-  // State
   const [replies, setReplies] = useState([
     { id: 0, type: "comp", message: common[lang].greet },
     { id: 2, type: "comp", message: common[lang].helperTwo },
@@ -35,7 +31,6 @@ export default function Home(): JSX.Element {
   const [reset, setReset] = useState(false);
   const [visited, setVisited] = useState(false);
   const [error, setError] = useState({ enabled: false, code: 0, message: "" });
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [suggestion, setSuggestion] = useState<any[]>([]);
 
   useEffect(() => {
@@ -64,7 +59,6 @@ export default function Home(): JSX.Element {
     }
   }, []);
 
-  // Functions
   const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     setLoading(true);
@@ -109,18 +103,14 @@ export default function Home(): JSX.Element {
         setError({
           enabled: true,
           code: response.status,
-          message:
-            "Heroku is taking a while to wake up, try resubmitting please.",
+          message: "Heroku is taking a while to wake up, try resubmitting please.",
         });
       }
       if (response.status !== 200 && response.status !== 504) {
         setError({
           enabled: true,
           code: response.status,
-          message:
-            response.statusText.length > 1
-              ? response.statusText
-              : "Oops, something went wrong",
+          message: response.statusText.length > 1 ? response.statusText : "Oops, something went wrong",
         });
       }
       const { data } = await response.json();
@@ -158,16 +148,11 @@ export default function Home(): JSX.Element {
 
       <Header title={common[lang].title} />
 
-      <Main visited={visited}>
+      <Container visited={visited}>
         {replies
           .filter((reply) => reply.type !== "final")
           .map(({ id, type, message }) => (
-            <ConvoBubble
-              key={id}
-              type={type}
-              message={message}
-              visited={visited}
-            />
+            <ConvoBubble key={id} type={type} message={message} visited={visited} />
           ))}
 
         {loading && <LoadingBubble />}
@@ -195,25 +180,15 @@ export default function Home(): JSX.Element {
                 />
               </Feedback>
             )}
-            {!feedback && !input && (
-              <ConvoBubble type="comp" message={common[lang].final} />
-            )}
+            {!feedback && !input && <ConvoBubble type="comp" message={common[lang].final} />}
           </>
         )}
 
         {input && (
-          <InputBubble
-            ref={chatEl}
-            text={text}
-            setText={setText}
-            handleSubmit={handleSubmit}
-            visited={visited}
-          />
+          <InputBubble ref={chatEl} text={text} setText={setText} handleSubmit={handleSubmit} visited={visited} />
         )}
 
-        {error.enabled && (
-          <ErrorBubble code={error.code} message={error.message} />
-        )}
+        {error.enabled && <ErrorBubble code={error.code} message={error.message} />}
 
         {reset && (
           <Feedback ref={suggestEl}>
@@ -225,7 +200,7 @@ export default function Home(): JSX.Element {
             />
           </Feedback>
         )}
-      </Main>
+      </Container>
 
       <Footer />
     </>

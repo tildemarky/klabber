@@ -12,8 +12,7 @@ export const common = {
     blurb:
       "Cupcake ipsum dolor sit amet. Cake donut marshmallow jelly lollipop tiramisu. Jujubes macaroon candy canes sweet bear claw tootsie roll pastry soufflé icing. Toffee gingerbread tootsie roll sugar plum donut cupcake gummies. ",
     feedback: "Find the games you needed?",
-    explanationSummary:
-      "Klabber was created to help point people to some games that suit their tastes. ",
+    explanationSummary: "Klabber was created to help point people to some games that suit their tastes. ",
     explanationExpansion:
       "One of the main focuses of Klabber was to keep the interface feeling conversational, like you were asking a friend about some really good game recommendations.",
     final: "Nice, hope you enjoy the game(s)!",
@@ -31,8 +30,7 @@ export const common = {
     negative: "No",
     blurb:
       "Cupcake ipsum dolor sit amet. Cake donut marshmallow jelly lollipop tiramisu. Jujubes macaroon candy canes sweet bear claw tootsie roll pastry soufflé icing. Toffee gingerbread tootsie roll sugar plum donut cupcake gummies. ",
-    explanationSummary:
-      "Klabber was created to help point people to some games that suit their tastes. ",
+    explanationSummary: "Klabber was created to help point people to some games that suit their tastes. ",
     explanationExpansion:
       "One of the main focuses of Klabber was to keep the interface feeling conversational, like you were asking a friend about some really good game recommendations.",
     feedback: "Find the games you needed?",

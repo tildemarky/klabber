@@ -1,5 +1,4 @@
-import NextDocument, { Html, Head, Main, NextScript } from "next/document";
-import React from "react";
+import NextDocument, { Head, Html, Main, NextScript } from "next/document";
 
 export default class Document extends NextDocument {
   public render(): JSX.Element {
@@ -7,11 +6,7 @@ export default class Document extends NextDocument {
       <Html>
         <Head>
           <link rel="preconnect" href="https://fonts.googleapis.com" />
-          <link
-            rel="preconnect"
-            href="https://fonts.gstatic.com"
-            crossOrigin="true"
-          />
+          <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
           <link
             href="https://fonts.googleapis.com/css2?family=Maven+Pro:wght@700&family=Inter:wght@400;700&display=swap"
             rel="stylesheet"
