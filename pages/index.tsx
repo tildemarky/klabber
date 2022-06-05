@@ -1,14 +1,12 @@
-import ConvoBubble from "@comp/Bubbles/ConvoBubble";
+import Bubble from "@comp/Bubble";
 import ErrorBubble from "@comp/Bubbles/ErrorBubble";
 import InputBubble from "@comp/Bubbles/InputBubble";
 import LoadingBubble from "@comp/Bubbles/LoadingBubble";
-import SuggestBubble from "@comp/Bubbles/SuggestBubble";
 import Choices from "@comp/Choices";
 import Container from "@comp/Container";
 import Feedback from "@comp/Feedback";
 import Footer from "@comp/Layout/Footer";
 import Header from "@comp/Layout/Header";
-import SuggestionBox from "@comp/SuggestionBox";
 import { useLang } from "@hooks/useLang";
 import { common } from "@locales/common";
 import Head from "next/head";
@@ -32,6 +30,7 @@ export default function Home(): JSX.Element {
   const [visited, setVisited] = useState(false);
   const [error, setError] = useState({ enabled: false, code: 0, message: "" });
   const [suggestion, setSuggestion] = useState<any[]>([]);
+  const [messages, setMessages] = useState([{ id: 0, type: "bot", games: null, message: common[lang].greet }]);
 
   useEffect(() => {
     if (chatEl?.current) {
@@ -62,7 +61,8 @@ export default function Home(): JSX.Element {
   const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     setLoading(true);
-    const obj = { id: replies.length + 1, type: "reply", message: text };
+    const obj = { id: messages.length + 1, type: "reply", games: null, message: text };
+    setMessages([...messages, obj]);
     setReplies([...replies, obj]);
     await getData(text);
   };
@@ -88,7 +88,6 @@ export default function Home(): JSX.Element {
       case "reset": {
         setReset(false);
         setInput(false);
-        setError({ enabled: false, code: 0, message: "" });
         await handleReset();
         break;
       }
@@ -99,29 +98,26 @@ export default function Home(): JSX.Element {
       setInput(false);
       setLoading(true);
       const response = await fetch(`/api/search?question=${query}`);
-      if (response.status === 504) {
-        setError({
-          enabled: true,
-          code: response.status,
-          message: "Heroku is taking a while to wake up, try resubmitting please.",
-        });
-      }
       if (response.status !== 200 && response.status !== 504) {
-        setError({
-          enabled: true,
-          code: response.status,
-          message: response.statusText.length > 1 ? response.statusText : "Oops, something went wrong",
-        });
+        const errorMsg = { id: messages.length + 1, type: "error", games: null, message: "Oops, something went wrong" };
+        setMessages([...messages, errorMsg]);
       }
       const { data } = await response.json();
       if (data.length > 0) {
         setSuggestion(data);
+        console.log(data);
+        const gamesAddition = {
+          id: messages.length + 1,
+          type: "suggestion",
+          games: data,
+          message: "Here are some games fitting that description",
+        };
+        setMessages([...messages, gamesAddition]);
         setFeedback(true);
       }
       if (data.length === 0) {
         setReset(true);
       }
-      // console.log(data);
 
       // Simulating longer load times bc using a local placeholder
       // const response = await fetch("./placeholder.json");
@@ -149,15 +145,11 @@ export default function Home(): JSX.Element {
       <Header title={common[lang].title} />
 
       <Container visited={visited}>
-        {replies
-          .filter((reply) => reply.type !== "final")
-          .map(({ id, type, message }) => (
-            <ConvoBubble key={id} type={type} message={message} visited={visited} />
-          ))}
+        {messages && messages.map((msg) => <Bubble key={msg.id} {...msg} />)}
 
         {loading && <LoadingBubble />}
 
-        {suggestion && suggestion.length > 0 && (
+        {/* {suggestion && suggestion.length > 0 && (
           <>
             <SuggestionBox>
               {suggestion?.slice(0, 6).map((item, index) => (
@@ -182,7 +174,7 @@ export default function Home(): JSX.Element {
             )}
             {!feedback && !input && <ConvoBubble type="comp" message={common[lang].final} />}
           </>
-        )}
+        )} */}
 
         {input && (
           <InputBubble ref={chatEl} text={text} setText={setText} handleSubmit={handleSubmit} visited={visited} />
