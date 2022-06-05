@@ -66,7 +66,7 @@ const SuggestionBubble = ({
       <div className={TextContainer}>
         <div className={Text}>
           <p className={Title}>{name}</p>
-          <p className={Rating}>Metacritic Score: {metacritic}</p>
+          {metacritic && <p className={Rating}>Metacritic Score: {metacritic}</p>}
         </div>
         <button className={ModalButton} type="button" onClick={() => setOpen(!open)}>
           <svg
@@ -86,9 +86,6 @@ const SuggestionBubble = ({
           </svg>
         </button>
       </div>
-      {/* <motion.div initial="hidden" animate="visible" variants={storesAnim}>
-        {}
-      </motion.div> */}
       {open && <SuggestionDialog open={open} setOpen={setOpen} {...modalProps} />}
     </motion.div>
   );
