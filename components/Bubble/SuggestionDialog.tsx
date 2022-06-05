@@ -1,8 +1,24 @@
 import Stores from "@comp/Stores";
+import { Dispatch, SetStateAction } from "react";
 import Rating from "./Rating";
+import type { SuggestionProps } from "./SuggestionBubble";
 import { Modal, ModalImage, ModalTitle, Overlay } from "./SuggestionDialog.css";
 
-const SuggestionDialog = ({ open, setOpen, name, metacritic, stores, background_image, ratings, esrb_rating }) => {
+interface DialogProps extends SuggestionProps {
+  open: boolean;
+  setOpen: Dispatch<SetStateAction<boolean>>;
+}
+
+const SuggestionDialog = ({
+  open,
+  setOpen,
+  name,
+  metacritic,
+  stores,
+  background_image,
+  ratings,
+  esrb_rating,
+}: DialogProps) => {
   console.log(ratings);
   console.log(esrb_rating);
   return (

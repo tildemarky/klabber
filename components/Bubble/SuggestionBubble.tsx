@@ -27,8 +27,7 @@ const bubble = {
   },
 };
 
-type SuggestionProps = {
-  id: number;
+export type SuggestionProps = {
   background_image: string;
   metacritic: number;
   name: string;
@@ -37,6 +36,7 @@ type SuggestionProps = {
     id?: number;
     title?: string;
     percent: number;
+    count: number;
   }[];
   stores: {
     store: {
@@ -47,15 +47,7 @@ type SuggestionProps = {
   }[];
 };
 
-const SuggestionBubble = ({
-  name,
-  id,
-  metacritic,
-  stores,
-  background_image,
-  ratings,
-  esrb_rating,
-}: SuggestionProps) => {
+const SuggestionBubble = ({ name, metacritic, stores, background_image, ratings, esrb_rating }: SuggestionProps) => {
   const [open, setOpen] = useState(false);
 
   const modalProps = { name, metacritic, stores, background_image, ratings, esrb_rating };
