@@ -1,9 +1,9 @@
 import { vars } from "@style/vars.css";
 import { style } from "@vanilla-extract/css";
 
-const BubbleStyle = style({
+const ErrorBub = style({
   vars: {
-    [vars.color.primary]: vars.color.slate4,
+    [vars.color.primary]: vars.color.red4,
   },
   width: "fit-content",
   marginRight: "auto",
@@ -13,11 +13,12 @@ const BubbleStyle = style({
   padding: "1rem 1.5rem",
   boxShadow: vars.shadows.low,
   transition: vars.transition,
-  backgroundColor: vars.color.primary,
   ":hover": {
     transform: "translateY(-2px)",
     boxShadow: vars.shadows.medium,
   },
+  backgroundColor: vars.color.primary,
+  color: vars.color.red10,
 });
 
-export default BubbleStyle;
+export default ErrorBub;

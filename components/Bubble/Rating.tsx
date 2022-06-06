@@ -1,11 +1,11 @@
-import React from "react";
+import ESRB from "./Rating.css";
 
 type RatingProps = {
   rate: string;
 };
 const EveryonePlus = () => {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" width="60.418" height="90.627" viewBox="0 0 60.418 90.627">
+    <svg xmlns="http://www.w3.org/2000/svg" width="60.418" height="90.627" viewBox="0 0 60.418 90.627" className={ESRB}>
       <g id="Group_403" data-name="Group 403" transform="translate(-830 -867)">
         <g id="Group_253" data-name="Group 253" transform="translate(830.001 867)">
           <path
@@ -179,7 +179,7 @@ const EveryonePlus = () => {
 
 const MatureRating = () => {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" width="60.418" height="90.628" viewBox="0 0 60.418 90.628">
+    <svg xmlns="http://www.w3.org/2000/svg" width="60.418" height="90.628" viewBox="0 0 60.418 90.628" className={ESRB}>
       <g id="Group_405" data-name="Group 405" transform="translate(-1099.581 -867)">
         <g id="Group_276" data-name="Group 276" transform="translate(1099.583 867)">
           <path
@@ -328,7 +328,7 @@ const MatureRating = () => {
 
 const AdultsOnly = () => {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" width="60.42" height="90.628" viewBox="0 0 60.42 90.628">
+    <svg xmlns="http://www.w3.org/2000/svg" width="60.42" height="90.628" viewBox="0 0 60.42 90.628" className={ESRB}>
       <g id="Group_406" data-name="Group 406" transform="translate(-1240 -867)">
         <g id="Group_401" data-name="Group 401">
           <g id="Group_277" data-name="Group 277" transform="translate(1239.999 867)">
@@ -527,7 +527,13 @@ const AdultsOnly = () => {
 
 const RatingPending = () => {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" width="143.602" height="215.404" viewBox="0 0 143.602 215.404">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="143.602"
+      height="215.404"
+      viewBox="0 0 143.602 215.404"
+      className={ESRB}
+    >
       <g id="Group_478" data-name="Group 478" transform="translate(-47.061 -626.246)">
         <path
           id="Path_1183"
@@ -709,7 +715,7 @@ const RatingPending = () => {
 
 const TeenRating = () => {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" width="60.42" height="90.628" viewBox="0 0 60.42 90.628">
+    <svg xmlns="http://www.w3.org/2000/svg" width="60.42" height="90.628" viewBox="0 0 60.42 90.628" className={ESRB}>
       <g id="Group_404" data-name="Group 404" transform="translate(-960 -867)">
         <g id="Group_275" data-name="Group 275" transform="translate(960 867)">
           <path
@@ -821,7 +827,7 @@ const TeenRating = () => {
 
 const EveryoneRating = () => {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" width="60.418" height="90.628" viewBox="0 0 60.418 90.628">
+    <svg xmlns="http://www.w3.org/2000/svg" width="60.418" height="90.628" viewBox="0 0 60.418 90.628" className={ESRB}>
       <g id="Group_245" data-name="Group 245" transform="translate(-0.001)">
         <path
           id="Path_209"

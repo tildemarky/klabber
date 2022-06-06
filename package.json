@@ -1,6 +1,6 @@
 {
-  "name": "mouros-front",
-  "version": "0.1.0",
+  "name": "klabber-app",
+  "version": "0.99.0",
   "private": true,
   "scripts": {
     "dev": "next dev",

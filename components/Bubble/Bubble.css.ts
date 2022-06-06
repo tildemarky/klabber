@@ -3,11 +3,12 @@ import { style } from "@vanilla-extract/css";
 
 const SuggestionContainer = style({
   borderRadius: vars.radii.corners,
-  backgroundColor: vars.color.lightPrimary,
+  borderTopLeftRadius: 0,
+  backgroundColor: vars.color.slate3,
   padding: "8px",
   display: "flex",
   flexWrap: "wrap",
-  gap: "1rem",
+  gap: "0.5rem",
 });
 
-export default SuggestionContainer;
+export { SuggestionContainer };

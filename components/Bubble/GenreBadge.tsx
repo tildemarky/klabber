@@ -1,6 +1,10 @@
 import Genre from "./GenreBadge.css";
 
-const GenreBadge = ({ genreName }) => {
+interface GenreProps {
+  genreName: string;
+}
+
+const GenreBadge = ({ genreName }: GenreProps) => {
   return <div className={Genre}>{genreName}</div>;
 };
 

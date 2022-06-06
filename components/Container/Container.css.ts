@@ -4,7 +4,7 @@ const StyledContainer = style({
   flex: "1",
   display: "flex",
   flexDirection: "column",
-  justifyContent: "center",
+  justifyContent: "flex-end",
   margin: "0 auto",
   width: "100%",
 });
