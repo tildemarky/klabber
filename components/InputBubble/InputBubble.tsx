@@ -1,17 +1,6 @@
 import { motion } from "framer-motion";
 import { forwardRef, useEffect, useState } from "react";
-import { Box, Input, InputSection, RegularSpan, Span, SpanContainer, Submit, SubmitSvg } from "./InputBubble.css";
-
-const cardItem = {
-  visible: {
-    opacity: 1,
-    scale: 1,
-    transition: { type: "spring", bounce: 0.25 },
-  },
-  hidden: { opacity: 0, scale: 0 },
-};
-
-export type Ref = HTMLInputElement;
+import { Box, Input, InputSection, Submit, SubmitSvg } from "./InputBubble.css";
 
 type Props = {
   text: string;
@@ -19,6 +8,8 @@ type Props = {
   setText: React.Dispatch<React.SetStateAction<string>>;
   handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
 };
+
+export type Ref = HTMLInputElement;
 
 const InputBubble = forwardRef<Ref, Props>((props, ref) => {
   const [active, setActive] = useState(false);
@@ -33,19 +24,11 @@ const InputBubble = forwardRef<Ref, Props>((props, ref) => {
 
   return (
     <motion.form
-      className={`${Box}`}
+      className={Box}
       onSubmit={(e: React.FormEvent<HTMLFormElement>) => {
         props.handleSubmit(e);
       }}
-      variants={cardItem}
     >
-      {!props.visited && !active && (
-        <span className={SpanContainer}>
-          <span className={Span} />
-          <span className={RegularSpan} />
-        </span>
-      )}
-
       <div className={InputSection}>
         <input
           className={Input}

@@ -4,17 +4,9 @@ const StyledContainer = style({
   flex: "1",
   display: "flex",
   flexDirection: "column",
-  justifyContent: "center",
+  justifyContent: "flex-end",
   margin: "0 auto",
   width: "100%",
-  "@media": {
-    "(min-width: 760px)": {
-      width: "75vw",
-    },
-    "(min-width: 1020px)": {
-      width: "70vw",
-    },
-  },
 });
 
 export default StyledContainer;

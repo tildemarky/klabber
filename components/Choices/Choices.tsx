@@ -12,7 +12,6 @@ const item = {
   visible: { opacity: 1, y: 0 },
   hidden: { opacity: 0, y: 100 },
   tap: { scale: 0.85 },
-  hover: { scale: 0.95 },
 };
 
 function Choices({ variant, onClick }: ChoiceProps): JSX.Element {

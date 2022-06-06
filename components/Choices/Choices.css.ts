@@ -2,16 +2,19 @@ import { vars } from "@style/vars.css";
 import { style } from "@vanilla-extract/css";
 
 const Choice = style({
-  color: vars.color.primary,
-  backgroundColor: "white",
-  border: `2px solid ${vars.color.primary}`,
-  padding: "0.5rem 1rem",
+  width: "fit-content",
+  marginLeft: "auto",
+  backgroundColor: vars.color.blue5,
+  border: `2px solid ${vars.color.blue10}`,
   borderRadius: vars.radii.full,
-  selectors: {
-    "&:hover": {
-      backgroundColor: vars.color.primary,
-      color: "white",
-    },
+  padding: "1rem 1.5rem",
+  transition: vars.transition,
+  boxShadow: vars.shadows.low,
+  fontWeight: "600",
+  color: vars.color.blue10,
+  ":hover": {
+    transform: "translateY(-2px)",
+    boxShadow: vars.shadows.lowMedium,
   },
 });
 

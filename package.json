@@ -1,6 +1,6 @@
 {
-  "name": "mouros-front",
-  "version": "0.1.0",
+  "name": "klabber-app",
+  "version": "0.99.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -11,6 +11,7 @@
   "dependencies": {
     "@vanilla-extract/babel-plugin": "^1.1.4",
     "@vanilla-extract/css": "^1.6.8",
+    "@vanilla-extract/css-utils": "^0.1.2",
     "@vanilla-extract/next-plugin": "^2.0.1",
     "@vanilla-extract/recipes": "^0.2.3",
     "axios": "^0.27.2",

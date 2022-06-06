@@ -1,16 +1,14 @@
-import ConvoBubble from "@comp/Bubbles/ConvoBubble";
-import ErrorBubble from "@comp/Bubbles/ErrorBubble";
-import InputBubble from "@comp/Bubbles/InputBubble";
-import LoadingBubble from "@comp/Bubbles/LoadingBubble";
-import SuggestBubble from "@comp/Bubbles/SuggestBubble";
+import Bubble from "@comp/Bubble";
 import Choices from "@comp/Choices";
 import Container from "@comp/Container";
 import Feedback from "@comp/Feedback";
+import InputBubble from "@comp/InputBubble";
 import Footer from "@comp/Layout/Footer";
 import Header from "@comp/Layout/Header";
-import SuggestionBox from "@comp/SuggestionBox";
+import LoadingBubble from "@comp/LoadingBubble";
 import { useLang } from "@hooks/useLang";
 import { common } from "@locales/common";
+import MessageBubbles from "@style/indexPage.css";
 import Head from "next/head";
 import type { SyntheticEvent } from "react";
 import { useEffect, useRef, useState } from "react";
@@ -30,8 +28,9 @@ export default function Home(): JSX.Element {
   const [input, setInput] = useState(true);
   const [reset, setReset] = useState(false);
   const [visited, setVisited] = useState(false);
-  const [error, setError] = useState({ enabled: false, code: 0, message: "" });
   const [suggestion, setSuggestion] = useState<any[]>([]);
+  const initialMessage = { id: 0, type: "bot", games: null, message: common[lang].greet };
+  const [messages, setMessages] = useState([initialMessage]);
 
   useEffect(() => {
     if (chatEl?.current) {
@@ -40,7 +39,7 @@ export default function Home(): JSX.Element {
         block: "start",
       });
     }
-  }, [replies]);
+  }, [messages]);
   useEffect(() => {
     if (suggestEl?.current) {
       suggestEl.current.scrollIntoView({
@@ -62,14 +61,13 @@ export default function Home(): JSX.Element {
   const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     setLoading(true);
-    const obj = { id: replies.length + 1, type: "reply", message: text };
-    setReplies([...replies, obj]);
+    const obj = { id: messages.length + 2, type: "user", games: null, message: text };
+    setMessages((messages) => messages.concat(obj));
+    // setReplies([...replies, obj]);
     await getData(text);
   };
   const handleReset = async (): Promise<void> => {
     setLoading(true);
-    const latestMessage = replies[replies.length - 1].message;
-    await getData(latestMessage);
   };
   const handleChoice = async (e: SyntheticEvent) => {
     e.preventDefault();
@@ -87,9 +85,8 @@ export default function Home(): JSX.Element {
       }
       case "reset": {
         setReset(false);
-        setInput(false);
-        setError({ enabled: false, code: 0, message: "" });
-        await handleReset();
+        setInput(true);
+        setMessages([initialMessage]);
         break;
       }
     }
@@ -98,41 +95,41 @@ export default function Home(): JSX.Element {
     try {
       setInput(false);
       setLoading(true);
+
       const response = await fetch(`/api/search?question=${query}`);
-      if (response.status === 504) {
-        setError({
-          enabled: true,
-          code: response.status,
-          message: "Heroku is taking a while to wake up, try resubmitting please.",
-        });
-      }
       if (response.status !== 200 && response.status !== 504) {
-        setError({
-          enabled: true,
-          code: response.status,
-          message: response.statusText.length > 1 ? response.statusText : "Oops, something went wrong",
-        });
+        const errorMsg = { id: messages.length + 5, type: "error", games: null, message: "Oops, something went wrong" };
+        // filtering out any previous error messages to avoid confusion
+        setMessages((messages) => messages.concat(errorMsg));
+        setLoading(false);
       }
       const { data } = await response.json();
       if (data.length > 0) {
         setSuggestion(data);
+        const gamesAddition = {
+          id: messages.length + 3,
+          type: "suggestion",
+          games: data,
+          message: "Here are some games fitting that description",
+        };
+        setMessages((messages) => messages.concat(gamesAddition));
         setFeedback(true);
+        setLoading(false);
+        setReset(true);
       }
       if (data.length === 0) {
         setReset(true);
+        setLoading(false);
       }
-      // console.log(data);
 
-      // Simulating longer load times bc using a local placeholder
+      // Useful for local testing
       // const response = await fetch("./placeholder.json");
       // const data = await response.json();
       // const setVariables = () => {
-      //   setLoading(false);
       //   setFeedback(true);
       //   setSuggestion(data.results);
       // };
       // setTimeout(setVariables, 2000);
-      setLoading(false);
     } catch {
       setReset(true);
     }
@@ -149,46 +146,13 @@ export default function Home(): JSX.Element {
       <Header title={common[lang].title} />
 
       <Container visited={visited}>
-        {replies
-          .filter((reply) => reply.type !== "final")
-          .map(({ id, type, message }) => (
-            <ConvoBubble key={id} type={type} message={message} visited={visited} />
-          ))}
+        <div className={MessageBubbles}> {messages && messages.map((msg) => <Bubble key={msg.id} {...msg} />)} </div>
 
         {loading && <LoadingBubble />}
-
-        {suggestion && suggestion.length > 0 && (
-          <>
-            <SuggestionBox>
-              {suggestion?.slice(0, 6).map((item, index) => (
-                <SuggestBubble key={item ? item?.id : index} item={item} />
-              ))}
-            </SuggestionBox>
-            {feedback && (
-              <Feedback question ref={suggestEl}>
-                <Choices
-                  variant="good"
-                  onClick={async (e) => {
-                    await handleChoice(e);
-                  }}
-                />
-                <Choices
-                  variant="bad"
-                  onClick={async (e) => {
-                    await handleChoice(e);
-                  }}
-                />
-              </Feedback>
-            )}
-            {!feedback && !input && <ConvoBubble type="comp" message={common[lang].final} />}
-          </>
-        )}
 
         {input && (
           <InputBubble ref={chatEl} text={text} setText={setText} handleSubmit={handleSubmit} visited={visited} />
         )}
-
-        {error.enabled && <ErrorBubble code={error.code} message={error.message} />}
 
         {reset && (
           <Feedback ref={suggestEl}>
