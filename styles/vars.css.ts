@@ -41,4 +41,5 @@ globalStyle("body", {
   fontFamily: vars.font.main,
   fontWeight: "normal",
   boxSizing: "border-box",
+  overflowX: "hidden",
 });

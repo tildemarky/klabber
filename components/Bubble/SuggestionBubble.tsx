@@ -32,6 +32,8 @@ export type SuggestionProps = {
   metacritic: number;
   name: string;
   esrb_rating: { id: number; name: string; slug: string };
+  released: string;
+  genres: any[];
   ratings: {
     id?: number;
     title?: string;
@@ -47,10 +49,19 @@ export type SuggestionProps = {
   }[];
 };
 
-const SuggestionBubble = ({ name, metacritic, stores, background_image, ratings, esrb_rating }: SuggestionProps) => {
+const SuggestionBubble = ({
+  name,
+  metacritic,
+  stores,
+  background_image,
+  ratings,
+  esrb_rating,
+  released,
+  genres,
+}: SuggestionProps) => {
   const [open, setOpen] = useState(false);
 
-  const modalProps = { name, metacritic, stores, background_image, ratings, esrb_rating };
+  const modalProps = { name, metacritic, stores, background_image, ratings, esrb_rating, released, genres };
 
   return (
     <motion.div variants={bubble} className={SugBubble}>
