@@ -26,7 +26,7 @@ function Footer({ disabled }: FooterProps): JSX.Element {
     >
       <p>{common[lang].footer}</p>
       <p>
-        All game data provided by{" "}
+        All game data provided by
         <BaseLink text="RAWG" url="https://rawg.io/" whileHover="hover" whileTap="tap" variants={items} />
       </p>
     </motion.footer>

@@ -8,6 +8,9 @@ const nextConfig = {
     locales: ["en", "pt"],
     defaultLocale: "en",
   },
+  images: {
+    domains: ["media.rawg.io"],
+  },
 };
 
 module.exports = withVanillaExtract(nextConfig);

@@ -10,6 +10,9 @@ function WhyPage(): JSX.Element {
       <main className={StyledPage}>
         <h1>{common[lang].explanationSummary}</h1>
         <p>{common[lang].explanationExpansion}</p>
+        {common[lang].tips.map((tip) => (
+          <p key={tip.message}>{tip.message}</p>
+        ))}
       </main>
     </Layout>
   );

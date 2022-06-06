@@ -10,7 +10,6 @@ const ping = keyframes({
 
 const Box = style({
   position: "relative",
-  marginLeft: "auto",
   marginTop: "2rem",
 });
 const SpanContainer = style({
@@ -26,10 +25,8 @@ const SpanContainer = style({
 const RegularSpan = style({
   position: "relative",
   display: "inline-flex",
-  borderRadius: "9999px",
   width: "0.75rem",
   height: "0.75rem",
-  backgroundColor: vars.color.primary,
 });
 const Span = style({
   position: "absolute",
@@ -43,14 +40,16 @@ const Span = style({
 });
 const InputSection = style({
   display: "flex",
+  width: "100%",
 });
 const Input = style({
   backgroundColor: vars.color.gray,
   width: "100%",
   border: "none",
-  borderRadius: vars.radii.full,
-  height: "50px",
-  padding: "0.75rem 50px 0.75rem 1.5rem",
+  borderRadius: vars.radii.corners,
+  minHeight: "3rem",
+  padding: "1rem",
+  paddingRight: "3rem",
   boxSizing: "border-box",
   selectors: {
     "&:focus": {
@@ -61,16 +60,14 @@ const Input = style({
 });
 const Submit = style({
   position: "absolute",
-  right: "0",
+  top: "0.5rem",
+  right: "0.5rem",
   padding: "0",
-  marginTop: "5px",
-  marginRight: "5px",
   backgroundColor: "transparent",
-  borderRadius: vars.radii.full,
-  border: `2px solid ${vars.color.primary}`,
+  borderRadius: `calc(${vars.radii.corners} / 2)`,
+  border: "none",
   color: "white",
-  width: "40px",
-  height: "40px",
+  width: "30px",
   selectors: {
     "&:hover": {
       backgroundColor: vars.color.primary,
@@ -83,7 +80,8 @@ const Submit = style({
   },
 });
 const SubmitSvg = style({
-  marginTop: "5px",
+  width: "100%",
+  height: "100%",
   stroke: vars.color.primary,
   selectors: {
     "&:hover": {
