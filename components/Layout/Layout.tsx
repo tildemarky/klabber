@@ -14,8 +14,6 @@ function Layout({ children }: LayoutProps): JSX.Element {
   return (
     <>
       <Script
-        async
-        defer
         data-website-id="f06a2b69-f4ee-432c-97ec-56a1d2e410ae"
         src="https://umamiocto.netlify.app/umami.js"
         strategy="afterInteractive"

@@ -10,6 +10,7 @@ import { useLang } from "@hooks/useLang";
 import { common } from "@locales/common";
 import MessageBubbles from "@style/indexPage.css";
 import Head from "next/head";
+import Script from "next/script";
 import type { SyntheticEvent } from "react";
 import { useEffect, useRef, useState } from "react";
 
@@ -166,6 +167,11 @@ export default function Home(): JSX.Element {
         )}
       </Container>
 
+      <Script
+        data-website-id="f06a2b69-f4ee-432c-97ec-56a1d2e410ae"
+        src="https://umamiocto.netlify.app/umami.js"
+        strategy="afterInteractive"
+      />
       <Footer />
     </>
   );
