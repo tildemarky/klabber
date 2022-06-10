@@ -1,6 +1,5 @@
 import BaseLink from "@comp/BaseLink";
 import { motion } from "framer-motion";
-import Link from "next/link";
 import * as Head from "./Header.css";
 
 const list = {
@@ -34,20 +33,17 @@ function Header({ title, disabled }: HeaderProps): JSX.Element {
       animate={disabled ? false : { opacity: 1 }}
       transition={disabled ? { delay: 0, duration: 0 } : { delay: 4, duration: 2 }}
     >
-      <Link href="/" passHref>
-        <a className={Head.TitleLink}>
-          <h1 className={Head.Title}>{title}</h1>
-        </a>
-      </Link>
+      {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
+      <a href="/" className={Head.TitleLink}>
+        <h1 className={Head.Title}>{title}</h1>
+      </a>
+
       <motion.nav className={Head.Nav} initial={disabled ? "visible" : "hidden"} animate="visible" variants={list}>
         {/* disabling alternative languages because wit isn't handling them... but it was fun lol */}
         {/* <Link href="/" locale="pt" passHref>
           <motion.a variants={items}>Home (pt)</motion.a>
         </Link> */}
         <BaseLink url="/why" text="?" whileTap="tap" whileHover="hover" variants={items} />
-        {/* <Link href="/roadmap" passHref>
-          <motion.a variants={items}>Roadmap</motion.a>
-        </Link> */}
       </motion.nav>
     </motion.header>
   );
