@@ -96,11 +96,9 @@ globalStyle("#__next", {
   flexDirection: "column",
   margin: "0 1rem",
   minWidth: "200px",
-  overflowX: "hidden",
 });
 globalStyle("body", {
   fontFamily: vars.font.main,
   fontWeight: "normal",
   boxSizing: "border-box",
-  overflowX: "hidden",
 });
