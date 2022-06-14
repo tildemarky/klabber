@@ -32,7 +32,7 @@ const Modal = style({
 
 const ModalImage = style({
   width: "100%",
-  height: "300px",
+  height: "175px",
   objectFit: "cover",
   borderRadius: "5px",
 });
