@@ -18,11 +18,6 @@ export default function Home(): JSX.Element {
   const lang = useLang();
   const chatEl = useRef<HTMLInputElement>(null);
   const suggestEl = useRef<HTMLDivElement>(null);
-  const [replies, setReplies] = useState([
-    { id: 0, type: "comp", message: common[lang].greet },
-    { id: 2, type: "comp", message: common[lang].helperTwo },
-    { id: 3, type: "comp", message: common[lang].suggestion },
-  ]);
   const [text, setText] = useState("");
   const [feedback, setFeedback] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -31,7 +26,8 @@ export default function Home(): JSX.Element {
   const [visited, setVisited] = useState(false);
   const [suggestion, setSuggestion] = useState<any[]>([]);
   const initialMessage = { id: 0, type: "bot", games: null, message: common[lang].greet };
-  const [messages, setMessages] = useState([initialMessage]);
+  const secondaryMessage = { id: 1, type: "bot", games: null, message: `Try searching "find me great Nintendo games"` };
+  const [messages, setMessages] = useState([initialMessage, secondaryMessage]);
 
   useEffect(() => {
     if (chatEl?.current) {
@@ -64,7 +60,6 @@ export default function Home(): JSX.Element {
     setLoading(true);
     const obj = { id: messages.length + 2, type: "user", games: null, message: text };
     setMessages((messages) => messages.concat(obj));
-    // setReplies([...replies, obj]);
     await getData(text);
   };
   const handleReset = async (): Promise<void> => {
